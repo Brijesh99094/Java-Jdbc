@@ -64,7 +64,18 @@ public class SecurityIssueApp2 {
                     + ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+Updated code snippet:
+
+```java
+try {
+    // Database connection instantiation
+    Connection conn = DriverManager.getConnection(url, username, password);
+    // Rest of the code
+} catch (SQLException e) {
+    // Handle the exception appropriately
+    e.printStackTrace();
+}
+```
         }
     }
 
