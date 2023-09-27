@@ -112,17 +112,26 @@ public class SecurityIssueApp2 {
         System.out.print("Enter line of code: ");
         String codeLine = scanner.nextLine();
 
-        try {
-            Connection conn = db.getConnection();
-            Statement stmt = conn.createStatement();
-            String insertQuery = "INSERT INTO security_issues (title, description, severity, owasp, path, startLine, endLine, codeLine) " +
-                    "VALUES ('" + title + "', '" + description + "', '" + severity + "', '" + owasp + "', '" + path + "', " + startLine + ", " + endLine + ", '" + codeLine + "')";
-            stmt.executeUpdate(insertQuery);
-            System.out.println("Issue added successfully.");
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                Connection conn = db.getConnection();
+                Statement stmt = conn.createStatement();
+String insertQuery = "INSERT INTO security_issues (title, description, severity, owasp, path, startLine, endLine, codeLine) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+PreparedStatement pstmt = conn.prepareStatement(insertQuery);
+pstmt.setString(1, title);
+pstmt.setString(2, description);
+pstmt.setString(3, severity);
+pstmt.setString(4, owasp);
+pstmt.setString(5, path);
+pstmt.setInt(6, startLine);
+pstmt.setInt(7, endLine);
+pstmt.setString(8, codeLine);
+pstmt.executeUpdate();
+                System.out.println("Issue added successfully.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-    }
 
     private static void editIssue(Scanner scanner) {
         System.out.print("Enter issue ID to edit: ");
