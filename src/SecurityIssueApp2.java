@@ -165,8 +165,10 @@ public class SecurityIssueApp2 {
         try {
             Connection conn = db.getConnection();
              Statement stmt = conn.createStatement();
-            String deleteQuery = "DELETE FROM security_issues WHERE id =" + id;
-            stmt.executeUpdate(deleteQuery);
+String deleteQuery = "DELETE FROM security_issues WHERE id = ?";
+PreparedStatement pstmt = conn.prepareStatement(deleteQuery);
+pstmt.setInt(1, id);
+pstmt.executeUpdate();
             System.out.println("Issue deleted successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
