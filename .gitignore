@@ -1,2 +1,4 @@
 *.jar
 *.json
+*.db
+*.class
