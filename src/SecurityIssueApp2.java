@@ -149,9 +149,18 @@ public class SecurityIssueApp2 {
         try {
             Connection conn = db.getConnection();
              Statement stmt = conn.createStatement();
-            String updateQuery = "UPDATE security_issues SET title = '" + title + "', description = '" + description + "', severity = '" + severity + "', " +
-                    "owasp = '" + owasp + "', path = '" + path + "', startLine = " + startLine + ", endLine = " + endLine + ", codeLine = '" + codeLine + "' WHERE id = " + id;
-            stmt.executeUpdate(updateQuery);
+String updateQuery = "UPDATE security_issues SET title = ?, description = ?, severity = ?, owasp = ?, path = ?, startLine = ?, endLine = ?, codeLine = ? WHERE id = ?";
+PreparedStatement pstmt = conn.prepareStatement(updateQuery);
+pstmt.setString(1, title);
+pstmt.setString(2, description);
+pstmt.setString(3, severity);
+pstmt.setString(4, owasp);
+pstmt.setString(5, path);
+pstmt.setInt(6, startLine);
+pstmt.setInt(7, endLine);
+pstmt.setString(8, codeLine);
+pstmt.setInt(9, id);
+pstmt.executeUpdate();
             System.out.println("Issue updated successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
