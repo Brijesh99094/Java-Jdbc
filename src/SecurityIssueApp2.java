@@ -149,9 +149,10 @@ pstmt.executeUpdate();
         String path = scanner.nextLine();
         System.out.print("Enter new start line number: ");
         int startLine = scanner.nextInt();
-        System.out.print("Enter new end line number: ");
-        int endLine = scanner.nextInt();
-        scanner.nextLine();
+conn.prepareStatement("UPDATE table SET end_line = ? WHERE id = ?");
+pstmt.setInt(1, endLine);
+pstmt.setInt(2, id);
+pstmt.executeUpdate();
         System.out.print("Enter new line of code: ");
         String codeLine = scanner.nextLine();
 
