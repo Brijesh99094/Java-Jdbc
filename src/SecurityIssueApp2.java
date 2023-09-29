@@ -183,8 +183,9 @@ pstmt.executeUpdate();
         try {
             Connection conn = db.getConnection();
              Statement stmt = conn.createStatement();
-            String deleteQuery = "DELETE FROM security_issues WHERE id =" + id;
-            stmt.executeUpdate(deleteQuery);
+PreparedStatement pstmt = conn.prepareStatement("DELETE FROM security_issues WHERE id = ?");
+pstmt.setInt(1, id);
+pstmt.executeUpdate();
             System.out.println("Issue deleted successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
